@@ -1,0 +1,41 @@
+.c-headline{
+    display: flex;
+    justify-content: space-between;
+}
+.stories {
+    display: flex;
+    justify-content: space-between;
+}
+
+.content{
+    margin-top: 32px;
+    margin-bottom: 24px;
+}
+.x-container-post{
+    width: 980px;
+    margin: 0 auto;
+}
+
+.profile{
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.profile-photo{
+    width: 44px;
+    height: 44px;
+    margin-right: 14px;
+}
+.username{
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.date{
+    color: rgba(0, 0, 0, 0.4);
+    font-size: 12px;
+font-weight: 400;
+letter-spacing: 10%;
+text-transform: uppercase;
+margin-top: 10px;
+}
