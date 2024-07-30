@@ -1,30 +1,18 @@
 <template>
     <button
-    :class="['c-button', `theme-green`, {'hover-text': withHoverText}
-    ]"
-    :data-hover-text="hoverText"
-    >
-        <span class="btn-text">
-            <slot></slot>
-        </span>
+    class="c-button">{{ text || "Follow" }}
     </button>
 </template>
 
 <script>
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Button',
+  name: 'xButton',
   props: {
-    hoverText: {
-      type: String
-    }
-  },
-  computed: {
-    withHoverText () {
-      return this.hoverText?.length
-    }
+    text: String
   }
 }
+
 </script>
 
 <style lang="scss" scoped src="./button.scss"></style>

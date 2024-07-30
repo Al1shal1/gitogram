@@ -1,9 +1,9 @@
 
-import progress from './progress.vue'
+import indicator from './progress.vue'
 
 export default {
-  title: 'progress',
-  component: progress,
+  title: 'indicator',
+  component: indicator,
   ArgTypes: {
     onFinish: {
       action: 'onFinish'
@@ -13,12 +13,12 @@ export default {
 }
 
 const template = (args) => ({
-  components: { xProgress: progress },
+  components: { indicator },
   data () {
     return { args }
   },
   template: `
-      <x-progress @onFinish="args.onFinish" />
+      <indicator @onFinish="args.onFinish" />
       `
 })
 

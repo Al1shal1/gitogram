@@ -5,17 +5,9 @@
     font-size: 16px;
     font-weight: 700;
     letter-spacing: -0.15px;
-}
-.theme-green{
     background: var(--green);
     color: #fff;
     &:hover{
         background: var(--lightGray);
-        .btn-text{
-           display: none; 
         }
-    }
-}
-.hover-text:hover::before{
-    content: attr(data-hover-text);
 }

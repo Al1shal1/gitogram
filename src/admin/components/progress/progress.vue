@@ -7,7 +7,7 @@
 <script>
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'progress',
+  name: 'indicator',
   data () {
     return {
       active: false

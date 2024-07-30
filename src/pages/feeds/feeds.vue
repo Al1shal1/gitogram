@@ -30,9 +30,9 @@
                     <li class="post-item" v-for="item in items" :key="item.id">
                         <div class="profile">
                             <icon name="photo" class="profile-photo"/>
-                            <div class="username" >{{ getTestData(item).username }}</div>
+                            <div class="username" >{{ getPostData(item).username }}</div>
                         </div>
-                        <post v-bind="getTestData(item)"
+                        <post v-bind="getPostData(item)"
                         />
                         <feed />
                         <div class="date">15 may</div>
@@ -53,7 +53,6 @@ import { logo } from '../../icon/logo'
 import { post } from '../../components/post'
 import { feed } from '../../components/feed'
 import * as api from '../../api'
-
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'feeds',
@@ -72,7 +71,7 @@ export default {
     }
   },
   methods: {
-    getTestData (item) {
+    getPostData (item) {
       return {
         title: item.name,
         description: item.description,
