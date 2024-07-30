@@ -8,7 +8,7 @@
 import * as icon from './variants'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
-  name: 'Icon',
+  name: 'icon',
   components: { ...icon },
   props: {
     name: {

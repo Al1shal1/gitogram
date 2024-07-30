@@ -26,26 +26,18 @@
     <div class="content">
         <div class="c-main-content">
             <div class="x-container-post">
-                <div class="profile">
-                    <icon name="photo" class="profile-photo"/>
-                    <div class="username" >{{ stories[0].username }}</div>
-                </div>
-                <post/>
-                <feed/>
-                <div class="date">15 may</div>
-            </div>
-        </div>
-    </div>
-    <div class="content">
-        <div class="c-main-content">
-            <div class="x-container-post">
-                <div class="profile">
-                    <icon name="photo" class="profile-photo"/>
-                    <div class="username" >{{ stories[0].username }}</div>
-                </div>
-                <post/>
-                <feed/>
-                <div class="date">15 may</div>
+                <ul class="post-list">
+                    <li class="post-item" v-for="item in items" :key="item.id">
+                        <div class="profile">
+                            <icon name="photo" class="profile-photo"/>
+                            <div class="username" >{{ getTestData(item).username }}</div>
+                        </div>
+                        <post v-bind="getTestData(item)"
+                        />
+                        <feed />
+                        <div class="date">15 may</div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -60,6 +52,8 @@ import { icon } from '../../icon'
 import { logo } from '../../icon/logo'
 import { post } from '../../components/post'
 import { feed } from '../../components/feed'
+import * as api from '../../api'
+
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'feeds',
@@ -73,7 +67,27 @@ export default {
   },
   data () {
     return {
-      stories
+      stories,
+      items: []
+    }
+  },
+  methods: {
+    getTestData (item) {
+      return {
+        title: item.name,
+        description: item.description,
+        username: item.owner.login,
+        stars: item.stargazers_count,
+        forks: item.forks_count
+      }
+    }
+  },
+  async created () {
+    try {
+      const { data } = await api.trendings.getTrendings()
+      this.items = data.items
+    } catch (error) {
+      console.log(error)
     }
   }
 }

@@ -2,18 +2,18 @@
 <template>
     <slot name="post"/>
     <div class="content">
-        <div class="title">Vue.js</div>
-        <div class="text"><b>JavaScript</b> framework for building interactive web applications ⚡</div>
+        <div class="title">{{ title }}</div>
+        <div class="text" :if="description">{{ description }}</div>
         <div class="buttons">
             <div class="mark">
-                <icon name="star" />
+                <icon name="star" class="star"/>
                     Star
             </div>
-            <div class="wiews">156k</div>
-            <div class="fork">
-                <icon name="fork" /> Fork
+            <div class="stars">{{ stars }}k</div>
+            <div class="forks">
+                <icon name="fork" class="fork" /> Fork
             </div>
-            <div class="amount">4</div>
+            <div class="amount">{{ forks }}</div>
         </div>
     </div>
 </template>
@@ -25,6 +25,13 @@ export default {
   name: 'ThePost',
   components: {
     icon
+  },
+  props: {
+    title: String,
+    username: String,
+    stars: Number,
+    forks: Number,
+    description: String
   }
 }
 </script>
