@@ -99,6 +99,7 @@ export default {
       await this.handleSlide(ndx)
     }
     await this.fetchTrendings()
+    await this.loadReadme()
   }
 }
 </script>
