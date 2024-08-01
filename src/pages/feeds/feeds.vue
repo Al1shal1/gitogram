@@ -14,9 +14,10 @@
             <template #content>
                 <ul class="stories">
                     <li class="stories-item" v-for="story in stories" :key="story.id">
-                        <story-user-item
+                        <story-user-item @click="goToSliderPage(1)"
                 :avatar="story.avatar"
                 :username="story.username"
+                @storyPress="$router.push({name:'stories', params: { initialSlide: id }})"
                 />
                     </li>
                 </ul>
@@ -79,6 +80,14 @@ export default {
         stars: item.stargazers_count,
         forks: item.forks_count
       }
+    },
+    goToSliderPage (index) {
+      this.$router.push({
+        name: 'stories',
+        params: {
+          openedSlide: index
+        }
+      })
     }
   },
   async created () {

@@ -16,12 +16,14 @@ export default {
   emits: ['onFinish'],
   methods: {
     emitOnFinish () {
-      this.$emit('onFinish')
+      if (this.active === true) {
+        this.$emit('onFinish')
+      }
     }
   },
   mounted () {
     this.$nextTick(() => {
-      this.active = true
+      // this.active = true
     })
     this.$refs.indicator.addEventListener('transition', this.emitOnFinish)
   },
