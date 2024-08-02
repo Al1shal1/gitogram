@@ -1,10 +1,10 @@
 <template>
     <div class="avatar">
         <div class="avatar-logo">
-            <img :src="avatarUrl" alt="" class="avatar-logo-img">
+            <img :src="avatarUrl" :username="username" alt="" class="avatar-logo-img">
         </div>
         <div class="avatar-text">
-            <p>{{ nickname }}</p>
+            <p>{{ username }}</p>
         </div>
     </div>
 </template>
@@ -14,8 +14,13 @@ export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'avatar',
   props: {
-    avatarUrl: String,
-    nickname: String
+    avatarUrl: {
+      type: String,
+      required: true
+    },
+    username: {
+      type: String
+    }
   }
 }
 </script>

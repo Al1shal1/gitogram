@@ -7,26 +7,26 @@
                     @onFinish="$emit('onProgressFinish')" />
                 </div>
                 <div class="user">
-                    <avatar
-                    :avatarUrl="'https://i.pinimg.com/236x/55/67/c7/5567c77f407118991c19f34cdb36358a.jpg'"
-                    :nickname="'Jhon'"/>
+                    <user
+                    :avatarUrl="avatarUrl"
+                    :username="username" />
                 </div>
             </div>
             <div class="content">
-                <div class="loader" v-if="loader">
+                <div class="loader" v-if="loading">
                         <spinner />
                     </div>
                 <div class="info" v-else>
                     <div
-                    v-if="data.content?.length"
-                    class="content-text"
-                    v-html="data.content">
-                </div>
+                        v-if="content && content.length"
+                        class="content-text"
+                        v-html="content">
+                    </div>
                     <placeholder v-else :paragraphs="2" />
                 </div>
             </div>
-            <div class="button">
-                <xButton></xButton>
+            <div class="slide-button">
+                <xButton />
             </div>
         </div>
             <template v-if="active">
@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { avatar } from '../../admin/components/avatar'
+import { user } from '../../admin/components/user'
 import { xButton } from '../../admin/components/button'
 import { indicator } from '../../admin/components/progress'
 import { icon } from '../../icon'
@@ -54,8 +54,11 @@ import { spinner } from '../loader'
 
 export default {
   name: 'StoryPostItem',
+  data () {
+    return {}
+  },
   components: {
-    avatar,
+    user,
     xButton,
     indicator,
     icon,
@@ -64,7 +67,9 @@ export default {
   },
   props: {
     active: Boolean,
-    loading: Boolean,
+    loading: {
+      type: Boolean
+    },
     btnsShown: {
       type: Array,
       default: () => ['next', 'prev']
@@ -76,6 +81,22 @@ export default {
       validator (value) {
         return value.every((item) => item === 'next' || item === 'prev')
       }
+    },
+    avatarUrl: {
+      type: String,
+      required: true,
+      default: 'https://i.pinimg.com/236x/55/67/c7/5567c77f407118991c19f34cdb36358a.jpg'
+    },
+    username: {
+      type: String,
+      required: true,
+      default: 'Jhon'
+    },
+    content: {
+      type: String
+    },
+    id: {
+      type: Number
     }
   },
   emits: [

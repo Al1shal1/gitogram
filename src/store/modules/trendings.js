@@ -7,7 +7,14 @@ export default {
   },
   mutations: {
     SET_TRENDINGS: (state, trendings) => {
-      state.data = trendings
+      state.data = trendings.map((item) => {
+        item.following = {
+          status: false,
+          loading: false,
+          error: ''
+        }
+        return item
+      })
     },
     SET_README (state, payload) {
       state.data = state.data.map((repo) => {
@@ -22,12 +29,12 @@ export default {
     getRepoById: (state) => (id) => state.data.find((item) => item.id === id)
   },
   actions: {
-    async fetchTrendings ({ state, commit, rootState }) {
+    async fetchTrendings ({ commit }) {
       try {
         const { data } = await api.trendings.getTrendings()
         commit('SET_TRENDINGS', data.items)
       } catch (error) {
-        console.log('error')
+        console.log(error)
         throw error
       }
     }

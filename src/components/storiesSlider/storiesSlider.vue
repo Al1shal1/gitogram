@@ -18,7 +18,7 @@
             @onPrevSlide="handleSlide(ndx - 1)"
             @onProgressFinish="handleSlide(ndx + 1)"
           />
-         </li>
+          </li>
         </ul>
         </div>
     </div>
@@ -32,7 +32,7 @@ export default {
   name: 'TheStoriesSlider',
   components: { StoryPostItem },
   props: {
-    initialSlide: { tyoe: Number }
+    initialSlide: { type: Number }
   },
   data () {
     return {
@@ -62,34 +62,33 @@ export default {
     async fetchReadmeForActiveSlide () {
       const { id, owner, name } = this.trendings[this.slideNdx]
       await this.fetchReadme({ id, owner: owner.login, repo: name })
+    },
+    moveSlide (slideNum) {
+      const { slider, item } = this.$refs
+      const slideWidth = parseInt(
+        getComputedStyle(item[this.slideNdx]).getPropertyValue('width'), 10
+      )
+      this.slideNdx = slideNum
+      this.sliderPosition = -(slideWidth * slideNum)
+      slider.style.transform = `translateX(${this.sliderPosition}px)`
+    },
+    async loadReadme () {
+      this.loading = true
+      this.btnsShown = false
+      try {
+        await this.fetchReadmeForActiveSlide()
+      } catch (error) {
+        console.log(error)
+        throw error
+      } finally {
+        this.btnsShown = true
+        this.loading = false
+      }
+    },
+    async handleSlide (slideNum) {
+      this.moveSlide(slideNum)
+      await this.loadReadme()
     }
-  },
-  moveSlider (slideNdx) {
-    const { slider, item } = this.$refs
-    const sliderWith = parseInt(
-      getComputedStyle(item[this.slideNdx]).getPropertyValue('width'), 10
-    )
-    this.slideNdx = slideNdx
-    this.sliderPosition = -(sliderWith * slideNdx)
-
-    slider.style.transform = `translateX(${this.sliderPosition}px)`
-  },
-  async loadReadme () {
-    this.loading = true
-    this.btnsShown = false
-    try {
-      await this.fetchReadmeForActiveSlide()
-    } catch (error) {
-      console.log(error)
-      throw error
-    } finally {
-      this.loading = false
-      this.btnsShown = true
-    }
-  },
-  async handleSlide (slideNdx) {
-    this.moveSlide(slideNdx)
-    await this.loadReadme()
   },
   async mounted () {
     if (this.initialSlide) {

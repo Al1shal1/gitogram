@@ -13,10 +13,12 @@
             </template>
             <template #content>
                 <ul class="stories">
-                    <li class="stories-item" v-for="story in stories" :key="story.id">
-                        <story-user-item @click="goToSliderPage(1)"
-                :avatar="story.avatar"
-                :username="story.username"
+                    <li class="stories-item" v-for="{ id, owner } in trendings"
+                    :key="id">
+                        <story-user-item class="story-user-item"
+                        @click="goToSliderPage(1)"
+                :avatarUrl="owner.avatar_url"
+                :username="owner.login"
                 @storyPress="$router.push({name:'stories', params: { initialSlide: id }})"
                 />
                     </li>
@@ -46,6 +48,7 @@
 </template>
 
 <script>
+import { mapActions, mapState } from 'vuex'
 import { topline } from '../../components/topline'
 import { StoryUserItem } from '../../components/StoryUserItem'
 import stories from './data.json'
@@ -72,6 +75,9 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      fetchTrendings: 'trendings/fetchTrendings'
+    }),
     getPostData (item) {
       return {
         title: item.name,
@@ -90,6 +96,11 @@ export default {
       })
     }
   },
+  computed: {
+    ...mapState({
+      trendings: (state) => state.trendings.data
+    })
+  },
   async created () {
     try {
       const { data } = await api.trendings.getTrendings()
@@ -97,6 +108,9 @@ export default {
     } catch (error) {
       console.log(error)
     }
+  },
+  mounted () {
+    this.fetchTrendings()
   }
 }
 </script>

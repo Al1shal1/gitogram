@@ -5,6 +5,10 @@
     transition: .4s;
     position: relative;
     margin: 0 auto;
+    &.active {
+        transform: scale(1);
+        z-index: 2;
+    }
 }
 
 .stories-container {
@@ -32,7 +36,7 @@
     overflow-y: scroll;
     border-top: 1px solid #CACACA;
     border-bottom: 1px solid #CACACA;
-    padding: 6px 0 0 18px;
+    padding: 6px 15px 0 18px;
     margin-top: 12px;
 }
 
@@ -43,7 +47,7 @@
     transform: translate(-50%, -50%);
 }
 
-.button {
+.slide-button {
     border-radius: 8px;
     padding: 24px 52px;
 }
