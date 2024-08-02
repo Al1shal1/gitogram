@@ -54,9 +54,6 @@ import { spinner } from '../loader'
 
 export default {
   name: 'StoryPostItem',
-  data () {
-    return {}
-  },
   components: {
     user,
     xButton,
@@ -66,21 +63,15 @@ export default {
     spinner
   },
   props: {
-    active: Boolean,
+    active: {
+      type: Boolean
+    },
     loading: {
       type: Boolean
     },
     btnsShown: {
       type: Array,
       default: () => ['next', 'prev']
-    },
-    data: {
-      type: Object,
-      required: true,
-      default: () => ({}),
-      validator (value) {
-        return value.every((item) => item === 'next' || item === 'prev')
-      }
     },
     avatarUrl: {
       type: String,

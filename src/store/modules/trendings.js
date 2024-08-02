@@ -37,17 +37,17 @@ export default {
         console.log(error)
         throw error
       }
-    }
-  },
-  async fetchReadme ({ commit, getters }, { id, owner, repo }) {
-    const curRepo = getters.getRepoById(id)
-    if (curRepo.readme !== undefined) return
-    try {
-      const { data } = await api.readme.getReadme({ owner, repo })
-      commit('SET_README', { id, content: data })
-    } catch (error) {
-      console.log(error)
-      throw error
+    },
+    async fetchReadme ({ commit, getters }, { id, owner, repo }) {
+      const curRepo = getters.getRepoById(id)
+      if (curRepo.readme !== undefined) return
+      try {
+        const { data } = await api.readme.getReadme({ owner, repo })
+        commit('SET_README', { id, content: data })
+      } catch (error) {
+        console.log(error)
+        throw error
+      }
     }
   }
 }

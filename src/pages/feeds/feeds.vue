@@ -16,10 +16,9 @@
                     <li class="stories-item" v-for="{ id, owner } in trendings"
                     :key="id">
                         <story-user-item class="story-user-item"
-                        @click="goToSliderPage(1)"
                 :avatarUrl="owner.avatar_url"
                 :username="owner.login"
-                @storyPress="$router.push({name:'stories', params: { initialSlide: id }})"
+                @click="$router.push({name:'stories', params: { initialSlide: id }})"
                 />
                     </li>
                 </ul>
@@ -86,14 +85,6 @@ export default {
         stars: item.stargazers_count,
         forks: item.forks_count
       }
-    },
-    goToSliderPage (index) {
-      this.$router.push({
-        name: 'stories',
-        params: {
-          openedSlide: index
-        }
-      })
     }
   },
   computed: {

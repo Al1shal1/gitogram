@@ -1,19 +1,21 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <template>
-    <div :class={active} class="c-progress">
-        <div ref="indicator" class="indicator"></div>
-    </div>
+  <div :class={active} class="c-progress">
+    <div ref="indicator" class="indicator"></div>
+  </div>
 </template>
 
 <script>
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'indicator',
-  data () {
-    return {
-      active: false
+  emits: ['onFinish'],
+  props: {
+    active: {
+      type: Boolean,
+      default: false
     }
   },
-  emits: ['onFinish'],
   methods: {
     emitOnFinish () {
       if (this.active === true) {
@@ -23,13 +25,14 @@ export default {
   },
   mounted () {
     this.$nextTick(() => {
-      // this.active = true
+      // this.props.active = true
     })
-    this.$refs.indicator.addEventListener('transition', this.emitOnFinish)
+
+    this.$refs.indicator.addEventListener('transitionend', this.emitOnFinish)
   },
   beforeUnmount () {
     this.$refs.indicator.removeEventListener(
-      'transitioned',
+      'transitionend',
       this.emitOnFinish
     )
   }

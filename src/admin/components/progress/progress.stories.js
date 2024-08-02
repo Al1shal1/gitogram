@@ -5,8 +5,8 @@ export default {
   title: 'indicator',
   component: indicator,
   ArgTypes: {
-    onFinish: {
-      action: 'onFinish'
+    onProgressFinish: {
+      action: 'onProgressFinish'
     }
   }
 
@@ -18,7 +18,7 @@ const template = (args) => ({
     return { args }
   },
   template: `
-      <indicator @onFinish="args.onFinish" />
+      <indicator @onProgressFinish="args.onProgressFinish" />
       `
 })
 
