@@ -1,5 +1,5 @@
 import card from './card.vue'
-import { stats } from '@/components/stats'
+import { stats } from '../stats'
 
 export default {
   title: 'card',
