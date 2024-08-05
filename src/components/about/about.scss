@@ -1,0 +1,58 @@
+.c-user {
+    display: flex;
+}
+
+.avatar {
+    width: 86px;
+    margin-right: 20px;
+}
+
+.username {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 29px;
+}
+
+.stats-int {
+    color: #262626;
+    font-size: 14px;
+    margin-right: 4px;
+    font-weight: 700;
+}
+
+.watchers {
+    color: var(--green);
+    text-decoration: none;
+
+    .stats-title {
+        text-decoration: underline;
+    }
+
+    &:hover {
+        .stats-title {
+            text-decoration: none;
+        }
+    }
+}
+.stats-title {
+    font-size: 12px;
+    line-height: 29px;
+}
+
+.stats-item {
+    margin-right: 10px;
+    &:last-child{
+        margin: 0;
+    }
+}
+
+.data {
+    font-size: 14px;
+    color: var(--lightGray);
+}
+
+.stats {
+    display: flex;
+}
+
+

@@ -26,7 +26,12 @@
                 </div>
             </div>
             <div class="slide-button">
-                <xButton />
+                <xButton
+                :theme="following.status === true ? 'theme_grey' : 'theme_green'"
+                :hoverText="hoverText"
+                :loading="following.loading"
+          @click="$emit(following.status ? 'onUnFollow' : 'onFollow', id)"
+                >{{following.status ? 'Unfollow': 'Follow'}}</xButton>
             </div>
         </div>
             <template v-if="active">
@@ -62,6 +67,13 @@ export default {
     placeholder,
     spinner
   },
+  data () {
+    return {
+      hoverText: 'Unfollow',
+      theme_grey: 'theme_grey',
+      theme_green: 'theme_green'
+    }
+  },
   props: {
     active: {
       type: Boolean
@@ -88,12 +100,19 @@ export default {
     },
     id: {
       type: Number
+    },
+    following: {
+      status: { type: Boolean },
+      loading: { type: Boolean },
+      error: { type: Boolean }
     }
   },
   emits: [
     'onPrevSlide',
     'onNextSlide',
-    'onProgressFinish'
+    'onProgressFinish',
+    'onFollow',
+    'onUnFollow'
   ]
 }
 </script>

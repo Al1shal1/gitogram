@@ -12,5 +12,12 @@
     </div>
 </template>
 
+<script>
+export default {
+  // eslint-disable-next-line vue/multi-word-component-names
+  name: 'Topline'
+}
+</script>
+
 <style lang="scss" src="./topline.scss" scoped>
 </style>

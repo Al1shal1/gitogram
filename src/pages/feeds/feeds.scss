@@ -1,56 +1,29 @@
-.c-headline{
-    display: flex;
-    justify-content: space-between;
-}
 .stories {
     display: flex;
     justify-content: space-between;
 }
-.story-user-item{
+
+.story-user-item {
     width: 92px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    text-overflow : ellipsis;
+    text-overflow: ellipsis;
 }
-.content{
+
+.content {
     margin-top: 32px;
-    margin-bottom: 24px;
 }
-.x-container-post{
+
+.x-container-feeds {
     width: 980px;
     margin: 0 auto;
 }
-.post-list{
 
-}
-.post-item{
+.feeds-item {
     margin-bottom: 24px;
     &:last-child{
         margin-bottom: 0;
     }
-}
-.profile{
-    display: flex;
-    align-items: center;
-    margin-bottom: 16px;
-}
-.profile-photo{
-    width: 44px;
-    height: 44px;
-    margin-right: 14px;
-}
-.username{
-    font-weight: 700;
-    font-size: 18px;
-}
-
-.date{
-    color: rgba(0, 0, 0, 0.4);
-    font-size: 12px;
-font-weight: 400;
-letter-spacing: 10%;
-text-transform: uppercase;
-margin-top: 10px;
 }

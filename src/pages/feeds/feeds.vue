@@ -3,23 +3,22 @@
         <topline>
             <template #headline>
                 <div class="c-headline">
-                    <logo class="logo"/>
-                    <div class="icon">
-                        <icon name="home" />
-                        <icon name="photo" class="icon-photo"/>
-                        <icon name="out" />
-                    </div>
+                    <xHeader />
                 </div>
             </template>
             <template #content>
                 <ul class="stories">
-                    <li class="stories-item" v-for="{ id, owner } in trendings"
-                    :key="id">
-                        <story-user-item class="story-user-item"
-                :avatarUrl="owner.avatar_url"
-                :username="owner.login"
-                @click="$router.push({name:'stories', params: { initialSlide: id }})"
-                />
+                    <li
+                    class="stories-item"
+                    v-for="{ id, owner } in getUnstarredOnly"
+                    :key="id"
+                    >
+                        <story-user-item
+                          class="story-user-item"
+                          :avatarUrl="owner.avatar_url"
+                          :username="owner.login"
+                          @click="$router.push({name:'stories', params: { initialSlide: id }})"
+                        />
                     </li>
                 </ul>
             </template>
@@ -27,19 +26,32 @@
     </div>
     <div class="content">
         <div class="c-main-content">
-            <div class="x-container-post">
-                <ul class="post-list">
-                    <li class="post-item" v-for="item in items" :key="item.id">
-                        <div class="profile">
-                            <icon name="photo" class="profile-photo"/>
-                            <div class="username" >{{ getPostData(item).username }}</div>
-                        </div>
-                        <post v-bind="getPostData(item)"
-                        />
-                        <feed />
-                        <div class="date">15 may</div>
-                    </li>
-                </ul>
+            <div class="x-container-feeds">
+              <ul class="feeds-list">
+      <li
+        class="feeds-item"
+        v-for="{ id, owner, name, description, stargazers_count, forks_count, issues, created_at } in starred"
+        :key="id"
+      >
+        <feed
+          :avatarUrl="owner.avatar_url"
+          :username="owner.login"
+          :issues="issues?.data"
+          :date="new Date(created_at)"
+          :loading="issues?.loading"
+          @loadContent="loadIssues({ id, owner: owner.login, repo: name })"
+        >
+          <template #card>
+            <card
+              :title="name"
+              :description="description"
+              :stars="stargazers_count"
+              :forks="forks_count"
+            ></card>
+          </template>
+        </feed>
+      </li>
+    </ul>
             </div>
         </div>
     </div>
@@ -47,25 +59,23 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex'
+import { useStore } from 'vuex'
+import * as api from '../../api'
+import { xHeader } from '../../admin/components/xHeader'
 import { topline } from '../../components/topline'
 import { StoryUserItem } from '../../components/StoryUserItem'
 import stories from './data.json'
-import { icon } from '../../icon'
-import { logo } from '../../icon/logo'
-import { post } from '../../components/post'
 import { feed } from '../../components/feed'
-import * as api from '../../api'
+import { card } from '../../admin/components/card'
+import { onMounted, computed } from 'vue'
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: 'feeds',
+  name: 'TheFeeds',
   components: {
     topline,
     StoryUserItem,
-    icon,
-    logo,
+    xHeader,
     feed,
-    post
+    card
   },
   data () {
     return {
@@ -73,24 +83,23 @@ export default {
       items: []
     }
   },
-  methods: {
-    ...mapActions({
-      fetchTrendings: 'trendings/fetchTrendings'
-    }),
-    getPostData (item) {
-      return {
-        title: item.name,
-        description: item.description,
-        username: item.owner.login,
-        stars: item.stargazers_count,
-        forks: item.forks_count
-      }
+  setup () {
+    const { dispatch, state, getters } = useStore()
+    const loadIssues = ({ id, owner, repo }) => {
+      dispatch('starred/fetchIssuesForRepo', { id, owner, repo })
     }
-  },
-  computed: {
-    ...mapState({
-      trendings: (state) => state.trendings.data
+
+    onMounted(() => {
+      dispatch('trendings/fetchTrendings')
+      dispatch('starred/fetchStarred', { limit: 10 })
     })
+
+    return {
+      trendings: computed(() => state.trendings.data),
+      starred: computed(() => state.starred.data),
+      getUnstarredOnly: computed(() => getters.getUnstarredOnly),
+      loadIssues
+    }
   },
   async created () {
     try {
@@ -99,22 +108,8 @@ export default {
     } catch (error) {
       console.log(error)
     }
-  },
-  mounted () {
-    this.fetchTrendings()
   }
 }
 </script>
 
 <style lang="scss" scoped src="./feeds.scss"></style>
-
-<style lang="scss" scoped>
-.icon {
-    display: flex;
-    cursor: pointer;
-}
-.icon-photo{
-    margin-left: 24px;
-    margin-right: 24px;
-}
-</style>

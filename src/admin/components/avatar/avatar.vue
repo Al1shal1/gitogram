@@ -1,9 +1,9 @@
 <template>
-    <div class="avatar">
-        <div class="avatar-logo">
-            <img :src="avatarUrl" :username="username" alt="" class="avatar-logo-img">
+    <div class="avatar" :class="size">
+        <div class="avatar__logo">
+            <img :src="avatarUrl" :username="username" alt="" class="avatar__logo-img">
         </div>
-        <div class="avatar-text">
+        <div class="avatar__text">
             <p>{{ username }}</p>
         </div>
     </div>
@@ -11,8 +11,14 @@
 
 <script>
 export default {
-  // eslint-disable-next-line vue/multi-word-component-names
-  name: 'avatar',
+  name: 'TheAvatar',
+  data () {
+    return {
+      avatar_s: 'avatar_s',
+      avatar_m: 'avatar_m',
+      avatar_l: 'avatar_l'
+    }
+  },
   props: {
     avatarUrl: {
       type: String,
@@ -20,6 +26,10 @@ export default {
     },
     username: {
       type: String
+    },
+    size: {
+      type: String,
+      required: true
     }
   }
 }

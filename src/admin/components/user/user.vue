@@ -1,12 +1,13 @@
 <template>
     <div class="user">
       <avatar
-        class="user-avatar"
+        class="user__avatar"
         :avatarUrl="avatarUrl"
+        :size="size"
       ></avatar>
       <div>
-        <div class="user-name">{{ username }}</div>
-        <div v-if="type" class="user-type">{{ type }}</div>
+        <div class="user__name">{{ username }}</div>
+        <div v-if="type" class="user__type">{{ type }}</div>
       </div>
     </div>
   </template>
@@ -33,6 +34,10 @@ export default {
     type: {
       type: String,
       default: ''
+    },
+    size: {
+      type: String,
+      default: 'avatar_m'
     }
   },
   setup (props) {

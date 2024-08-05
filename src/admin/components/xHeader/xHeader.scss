@@ -1,0 +1,24 @@
+.c-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    .avatar_user {
+        margin-left: 24px;
+        margin-right: 20px;
+        width: 37px;
+        height: 37px;
+    }
+}
+
+.icon {
+    color: #000;
+    width: 32px;
+
+    &_logout {
+        width: 32px;
+    }
+}

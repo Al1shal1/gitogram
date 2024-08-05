@@ -1,4 +1,4 @@
 
 module.exports = {
-publicPath: '/gitogram/dist/'
+  publicPath: '/gitogram/dist/'
 }
