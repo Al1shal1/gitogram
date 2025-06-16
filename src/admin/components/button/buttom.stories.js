@@ -1,4 +1,3 @@
-
 import xButton from './button.vue'
 import { spinner } from '../../../components/loader'
 export default {

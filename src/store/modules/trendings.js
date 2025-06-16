@@ -84,7 +84,7 @@ export default {
           id,
           data: {
             status: false,
-            error: error
+            error
           }
         })
       } finally {

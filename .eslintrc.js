@@ -2,6 +2,8 @@ module.exports = {
   root: true,
   env: {
     node: true,
+    browser: true,
+    jest: true
     // 'jest/globals': true
   },
   extends: ['plugin:vue/vue3-essential', '@vue/standard', 'plugin:storybook/recommended'],

@@ -1,4 +1,3 @@
-
 import stats from './stats.vue'
 import { icon } from '../../../icon'
 

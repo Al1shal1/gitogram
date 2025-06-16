@@ -1,4 +1,3 @@
-
 import indicator from './progress.vue'
 
 export default {
